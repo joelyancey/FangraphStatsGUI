@@ -1,9 +1,13 @@
-import pandas as pd
+import logging
+import traceback
 import requests
+import pandas as pd
 from datetime import datetime as dt
 import datetime as date
 from bs4 import BeautifulSoup
 import lxml
+
+logger = logging.getLogger(__name__)
 
 # user input for date ranges
 def date_ranges():
@@ -125,8 +129,8 @@ def get_hitter_stats(num_days, qual_hitter, num_players):
         df_hitter_total = fangraphs_hitters_parse(url)
     except ConnectionError:
         df_hitter_total = fangraphs_hitters_parse(url)
-    except:
-        pass
+    except Exception:
+        logging.error(traceback.format_exc())
 
     # change 'Name' column to player last name and first name
     names = df_hitter_total['Name'].tolist()

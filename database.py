@@ -1,3 +1,4 @@
+import logging
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
@@ -6,6 +7,8 @@ Base = declarative_base()
 
 from stats import FanGraphHitterCall
 from stats import FanGraphPitcherCall
+
+logger = logging.getLogger(__name__)
 
 class FanGraphDatabase:
 

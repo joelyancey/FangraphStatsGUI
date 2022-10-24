@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/fangraphstats.iml" filepath="$PROJECT_DIR$/.idea/fangraphstats.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/FangraphStatsGUI.iml" filepath="$PROJECT_DIR$/.idea/FangraphStatsGUI.iml" />
     </modules>
   </component>
 </project>

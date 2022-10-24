@@ -1,16 +1,26 @@
-import pandas as pd
+from glob import glob
+import logging
+import traceback
+import shutil
 import sqlite3
-import xlsxwriter
-import os
 from compile_db import *
 cwd = os.getcwd()
 
+'''
+Changes:
+- The original file removal loop was slow since it needs to scan the entire file index of the current 
+directory 365 times, every time. The implementation below only scans the file index once, only 
+requires any CPU time at all if files matching the glob pattern 'fangraph_*days.xlsx' exist.
+
+'''
+
+logger = logging.getLogger(__name__)
+
 #delete all .xlsx files before compiling data
-for i in range(365):
-    try:
-        os.remove(cwd + "/fangraph_{}days.xlsx".format(i))
-    except:
-        pass
+
+logger.info('Remove files')
+for f in glob('fangraph_*days.xlsx'):
+    shutil.rmtree(f)
 
 for day in num_days:
     # insert the file path for the Excel wooksheet
@@ -22,6 +32,7 @@ for day in num_days:
     writer = pd.ExcelWriter(filePath, engine='xlsxwriter')
 
     df = pd.read_sql("SELECT name FROM sqlite_master WHERE type='table'", conn)
+    print(df)
 
     for table_name in df['name']:
         sheet_name = table_name
